@@ -1,4 +1,4 @@
-package cc.aisc.core.config.datasource.annotation;
+package cc.aisc.core.config.db.support.annotation;
 
 import java.lang.annotation.*;
 

@@ -1,4 +1,4 @@
-package cc.aisc.core.config.datasource.mybatis;
+package cc.aisc.core.config.db.support;
 
 import cc.aisc.core.commons.costant.Constant;
 import org.apache.commons.lang3.RandomUtils;

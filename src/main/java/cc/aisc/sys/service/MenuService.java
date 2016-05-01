@@ -10,6 +10,6 @@ import java.util.Optional;
  * Created by sjf on 16-4-24.
  */
 public interface MenuService extends BaseService<Menu, Integer> {
-    //Optional<Menu> findById(Integer id);
-    Optional<List<Menu>> findAll();
+    Optional<List<Menu>> findAllValid();
+    Optional<List<Menu>> findValidByLvlLe(Integer lvl);
 }

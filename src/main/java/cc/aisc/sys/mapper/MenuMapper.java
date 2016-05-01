@@ -9,5 +9,5 @@ import java.util.List;
 public interface MenuMapper extends BaseMapper<Menu, Integer>{
 
     @Cacheable(value = "validMenuCache", keyGenerator = "redisKeyGenerator")
-    List<Menu> selectValid();
+    List<Menu> selectValidByLevelLe(Integer lvl);
 }

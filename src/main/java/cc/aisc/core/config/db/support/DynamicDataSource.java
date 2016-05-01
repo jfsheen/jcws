@@ -1,4 +1,4 @@
-package cc.aisc.core.config.datasource.mybatis;
+package cc.aisc.core.config.db.support;
 
 import org.springframework.jdbc.datasource.lookup.AbstractRoutingDataSource;
 

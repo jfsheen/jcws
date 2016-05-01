@@ -20,16 +20,14 @@ public class MenuServiceImpl extends AbstractService<Menu, Integer> implements M
 
     @Autowired
     private MenuMapper menuMapper;
-/*
-
-
-    public Optional<Menu> findById(Integer id){
-        return Optional.ofNullable(menuMapper.findById(id));
-    }
-*/
 
     @Override
-    public Optional<List<Menu>> findAll() {
-        return Optional.ofNullable(menuMapper.selectValid());
+    public Optional<List<Menu>> findAllValid() {
+        return Optional.ofNullable(menuMapper.selectValidByLevelLe(-1));
+    }
+
+    @Override
+    public Optional<List<Menu>> findValidByLvlLe(Integer lvl) {
+        return Optional.ofNullable(menuMapper.selectValidByLevelLe(lvl));
     }
 }

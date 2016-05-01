@@ -106,22 +106,28 @@
                enableSelectByExample="false" selectByExampleQueryId="false">
             <generatedKey column="id" sqlStatement="Mysql" identity="true" /></table>-->
 
-        <javaModelGenerator targetPackage="cc.aisc.gen.model" targetProject="src/main/java">
-            <property name="constructorBased" value="true"/>
+        <javaModelGenerator targetPackage="cc.aisc.sys.model" targetProject="src/main/java">
+            <property name="constructorBased" value="false"/>
             <property name="enableSubPackages" value="true"/>
-            <property name="immutable" value="true"/><!--没有setter函数-->
+            <property name="immutable" value="false"/><!--没有setter函数-->
             <property name="trimStrings" value="true"/>
         </javaModelGenerator>
 
-        <sqlMapGenerator targetPackage="mybatis.mapper.gen" targetProject="src/main/resources">
+        <sqlMapGenerator targetPackage="mybatis.mapper.sys" targetProject="src/main/resources">
             <property name="enableSubPackages" value="true"/>
         </sqlMapGenerator>
 
-        <javaClientGenerator targetPackage="cc.aisc.gen.mapper" targetProject="src/main/java" type="XMLMAPPER">
+        <javaClientGenerator targetPackage="cc.aisc.sys.mapper" targetProject="src/main/java" type="XMLMAPPER">
             <property name="enableSubPackages" value="true"/>
         </javaClientGenerator>
 
-        <table tableName="t_own_tractor" domainObjectName="OwnTractor" enableCountByExample="false"
+        <table tableName="tree" domainObjectName="TreeNode" enableCountByExample="false"
+               enableUpdateByExample="false" enableDeleteByExample="false"
+               enableSelectByExample="false" selectByExampleQueryId="false">
+            <generatedKey column="id" sqlStatement="Mysql" identity="true" /></table>
+
+
+        <!--<table tableName="t_own_tractor" domainObjectName="OwnTractor" enableCountByExample="false"
                enableUpdateByExample="false" enableDeleteByExample="false"
                enableSelectByExample="false" selectByExampleQueryId="false">
             <generatedKey column="id" sqlStatement="Mysql" identity="true" /></table>
@@ -146,15 +152,12 @@
                enableSelectByExample="false" selectByExampleQueryId="false">
             <generatedKey column="id" sqlStatement="Mysql" identity="true" /></table>
 
-        <table tableName="t_co_receiver" domainObjectName="Receiver" enableCountByExample="false"
+        <table tableName="t_co_receiver" domainObjectName="Dealer" enableCountByExample="false"
                enableUpdateByExample="false" enableDeleteByExample="false"
                enableSelectByExample="false" selectByExampleQueryId="false">
             <generatedKey column="id" sqlStatement="Mysql" identity="true" /></table>
 
-        <table tableName="t_co_carrier" domainObjectName="Carrier" enableCountByExample="false"
-               enableUpdateByExample="false" enableDeleteByExample="false"
-               enableSelectByExample="false" selectByExampleQueryId="false">
-            <generatedKey column="id" sqlStatement="Mysql" identity="true" /></table>
+
 
         <table tableName="t_order" domainObjectName="Order" enableCountByExample="false"
                enableUpdateByExample="false" enableDeleteByExample="false"
@@ -174,9 +177,9 @@
         <table tableName="t_dtl_company" domainObjectName="CompanyDetail" enableCountByExample="false"
                enableUpdateByExample="false" enableDeleteByExample="false"
                enableSelectByExample="false" selectByExampleQueryId="false">
-            <generatedKey column="id" sqlStatement="Mysql" identity="true" /></table>
+            <generatedKey column="id" sqlStatement="Mysql" identity="true" /></table>-->
 
-        <!--<table tableName="t_com_car" domainObjectName="CommercialCar" enableCountByExample="false"
+        <!--<table tableName="t_com_car" domainObjectName="VehicleOverall" enableCountByExample="false"
                enableUpdateByExample="false" enableDeleteByExample="false"
                enableSelectByExample="false" selectByExampleQueryId="false">
         <generatedKey column="id" sqlStatement="Mysql" identity="true" /></table>
@@ -186,7 +189,7 @@
                enableSelectByExample="false" selectByExampleQueryId="false">
             <generatedKey column="id" sqlStatement="Mysql" identity="true" /></table>
 
-        <table tableName="t_rt_site" domainObjectName="RouteSite" enableCountByExample="false"
+        <table tableName="t_rt_site" domainObjectName="RouteLocation" enableCountByExample="false"
                enableUpdateByExample="false" enableDeleteByExample="false"
                enableSelectByExample="false" selectByExampleQueryId="false">
             <generatedKey column="id" sqlStatement="Mysql" identity="true" /></table>

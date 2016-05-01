@@ -1,7 +1,7 @@
 package cc.aisc.biz.service.impl;
 
-import cc.aisc.biz.model.Receiver;
-import cc.aisc.biz.service.ReceiverService;
+import cc.aisc.biz.model.VehicleOverall;
+import cc.aisc.biz.service.VehicleOverallService;
 import cc.aisc.core.base.AbstractService;
 import org.springframework.stereotype.Service;
 
@@ -12,5 +12,6 @@ import javax.transaction.Transactional;
  */
 @Service
 @Transactional
-public class ReceiverServiceImpl extends AbstractService<Receiver, Integer> implements ReceiverService {
+public class VehicleOverallServiceImpl extends AbstractService<VehicleOverall, Integer> implements VehicleOverallService {
+
 }

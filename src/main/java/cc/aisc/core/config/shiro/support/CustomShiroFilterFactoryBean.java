@@ -1,4 +1,4 @@
-package cc.aisc.core.config.shiro;
+package cc.aisc.core.config.shiro.support;
 
 import org.apache.shiro.mgt.SecurityManager;
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean;

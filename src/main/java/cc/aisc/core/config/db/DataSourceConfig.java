@@ -1,7 +1,7 @@
-package cc.aisc.core.config.datasource;
+package cc.aisc.core.config.db;
 
 import cc.aisc.core.commons.costant.Constant;
-import cc.aisc.core.config.datasource.mybatis.DynamicDataSource;
+import cc.aisc.core.config.db.support.DynamicDataSource;
 import com.github.pagehelper.PageHelper;
 import org.apache.ibatis.plugin.Interceptor;
 import org.apache.ibatis.session.SqlSessionFactory;
@@ -40,7 +40,8 @@ import java.util.Properties;
 @Configuration
 @PropertySource("classpath:application.properties")
 @EnableTransactionManagement
-@MapperScan(basePackages = {"cc.aisc.biz.mapper","cc.aisc.auth.mapper","cc.aisc.sys.mapper"}, sqlSessionFactoryRef = "sqlSessionFactory")
+@MapperScan(basePackages = {"cc.aisc.biz.mapper","cc.aisc.auth.mapper","cc.aisc.sys.mapper"},
+        sqlSessionFactoryRef = "sqlSessionFactory")
 public class DataSourceConfig implements TransactionManagementConfigurer {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(DataSourceConfig.class);
@@ -79,7 +80,7 @@ public class DataSourceConfig implements TransactionManagementConfigurer {
         try {
             SqlSessionFactoryBean sqlSessionFactoryBean = new SqlSessionFactoryBean();
             sqlSessionFactoryBean.setDataSource(dataSource());
-            sqlSessionFactoryBean.setTypeAliasesPackage("cc.aisc.biz.model");
+            sqlSessionFactoryBean.setTypeAliasesPackage("cc.aisc.biz.model,cc.aisc.auth.model,cc.aisc.sys.model");
             PathMatchingResourcePatternResolver resolver = new PathMatchingResourcePatternResolver();
             sqlSessionFactoryBean.setMapperLocations(resolver.getResources("classpath*:mybatis/mapper/**/*Mapper.xml"));
 

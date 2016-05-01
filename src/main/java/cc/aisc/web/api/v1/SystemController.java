@@ -1,16 +1,15 @@
 package cc.aisc.web.api.v1;
 
+import cc.aisc.core.helper.TreeHelper;
 import cc.aisc.sys.model.Menu;
 import cc.aisc.biz.service.FuelPriceService;
+import cc.aisc.sys.model.Organization;
 import cc.aisc.sys.service.MenuService;
-import cc.aisc.sys.vo.MenuTree;
+import cc.aisc.sys.service.OrganizationService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.math.BigDecimal;
 import java.util.*;
@@ -28,20 +27,16 @@ public class SystemController {
     private MenuService menuService;
     @Autowired
     private FuelPriceService fuelPriceService;
+    @Autowired
+    private OrganizationService organizationService;
 
     @SuppressWarnings("unchecked")
-    @RequestMapping("/1000")
-    public List<Object> getMenuJson(){
-        MenuTree menuTree = new MenuTree();
+    @RequestMapping("/menu/{lvl}")
+    public List<Object> getMenuList(@PathVariable Integer lvl){
         try{
-            List<Menu> menuList = menuService.findAll().get();
-            menuTree.listMenuMap(menuList);
-            Map<String, Object> map = (LinkedHashMap<String, Object>) menuTree.list.get(0);
-            List<Object> list = new ArrayList<>();
-            list.addAll((List<Object>) map.get("submenu"));
-            map.remove("submenu");
-            list.add(0, map);
-            return list;
+            List<Menu> menuList = (ArrayList<Menu>)menuService.findValidByLvlLe(lvl).get();
+            TreeHelper helper = new TreeHelper<Menu>();
+            return helper.getTree(menuList);
         }catch (NoSuchElementException e){
             LOGGER.info("No menu exists!");
         }catch (ClassCastException e){
@@ -58,5 +53,18 @@ public class SystemController {
     @RequestMapping(value = "/1002", method = RequestMethod.POST)
     public int addFuelPrice(@RequestParam Date start, @RequestParam Date end, @RequestParam BigDecimal price){
         return 0;
+    }
+
+    @SuppressWarnings("unchecked")
+    @RequestMapping(value = "/organ", method = RequestMethod.GET)
+    public List<Organization> getTreeNodeData(){
+        try {
+            List<Organization> lists = (ArrayList<Organization>) organizationService.findAll().get();
+            TreeHelper helper = new TreeHelper<Organization>();
+            return helper.getTree(lists);
+        }catch (NoSuchElementException e){
+            e.printStackTrace();
+        }
+        return null;
     }
 }

@@ -1,9 +1,6 @@
 package cc.aisc.web.api.v1;
 
-import cc.aisc.biz.model.OwnDriver;
-import cc.aisc.biz.model.OwnTractor;
-import cc.aisc.biz.model.OwnTrailer;
-import cc.aisc.biz.model.OwnTruck;
+import cc.aisc.biz.model.*;
 import cc.aisc.biz.service.*;
 import cc.aisc.sys.service.DictionaryService;
 import com.github.pagehelper.PageHelper;
@@ -12,6 +9,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
 
@@ -35,7 +33,7 @@ public class SettingController {
     private final TransferCostService transferCostService;
     private final FuelPriceService fuelPriceService;
     private final DictionaryService dictionaryService;
-    private final CommercialCarService commercialCarService;
+    private final VehicleOverallService vehicleOverallService;
 
     @Autowired
     public SettingController(OwnDriverService ownDriverService,
@@ -49,7 +47,7 @@ public class SettingController {
                              TransferCostService transferCostService,
                              FuelPriceService fuelPriceService,
                              DictionaryService dictionaryService,
-                             CommercialCarService commercialCarService) {
+                             VehicleOverallService vehicleOverallService) {
         this.ownDriverService = ownDriverService;
         this.ownTractorService = ownTractorService;
         this.ownTrailerService = ownTrailerService;
@@ -61,13 +59,37 @@ public class SettingController {
         this.transferCostService = transferCostService;
         this.fuelPriceService = fuelPriceService;
         this.dictionaryService = dictionaryService;
-        this.commercialCarService = commercialCarService;
+        this.vehicleOverallService = vehicleOverallService;
     }
 
     @RequestMapping(value = "/driver", method = RequestMethod.POST)
     public void addDriver(@RequestBody OwnDriver driver){
         ownDriverService.insert(driver);
     }
+    @RequestMapping(value = "/drivers", method = RequestMethod.GET)
+    public List<OwnDriver> getDrivers(@RequestParam Integer toPage, @RequestParam Integer pageSize){
+        PageHelper.startPage(toPage, pageSize);
+        try{
+            return (ArrayList<OwnDriver>)ownDriverService.findAll().get();
+        }catch (NoSuchElementException e){
+            LOGGER.error("NO dirver in system!");
+        }
+        return null;
+    }
+    @RequestMapping(value = "/driver/{id}", method = RequestMethod.GET)
+    public OwnDriver getDriver(@PathVariable Integer id){
+        try{
+            return ownDriverService.findById(id).get();
+        }catch (NoSuchElementException e){
+            LOGGER.info("no driver id = {}", id);
+        }
+        return null;
+    }
+
+
+
+
+
     @RequestMapping(value = "/tractor", method = RequestMethod.POST)
     public void addTractor(@RequestBody OwnTractor tractor){
         ownTractorService.insert(tractor);
@@ -80,14 +102,37 @@ public class SettingController {
     public void addTruck(@RequestBody OwnTruck truck){
         ownTruckService.insert(truck);
     }
-    @RequestMapping(value = "/driver", method = RequestMethod.GET)
-    public List<OwnDriver> getDrivers(@RequestParam Integer toPage, @RequestParam Integer pageSize){
+
+
+    @RequestMapping(value = "/tractors", method = RequestMethod.GET)
+    public List<OwnTractor> getTractors(@RequestParam Integer toPage, @RequestParam Integer pageSize){
         PageHelper.startPage(toPage, pageSize);
         try{
-            ownDriverService.findById(1);
+            return (ArrayList<OwnTractor>)ownTractorService.findAll().get();
         }catch (NoSuchElementException e){
-            LOGGER.error("no dirver in system!");
+            LOGGER.error("NO tractor in system!");
         }
         return null;
     }
+    @RequestMapping(value = "/trailers", method = RequestMethod.GET)
+    public List<OwnTrailer> getTrailers(@RequestParam Integer toPage, @RequestParam Integer pageSize){
+        PageHelper.startPage(toPage, pageSize);
+        try{
+            return (ArrayList<OwnTrailer>)ownTrailerService.findAll().get();
+        }catch (NoSuchElementException e){
+            LOGGER.error("NO trailer in system!");
+        }
+        return null;
+    }
+    @RequestMapping(value = "/trucks", method = RequestMethod.GET)
+    public List<OwnTruck> getTrucks(@RequestParam Integer toPage, @RequestParam Integer pageSize){
+        PageHelper.startPage(toPage, pageSize);
+        try{
+            return (ArrayList<OwnTruck>)ownTruckService.findAll().get();
+        }catch (NoSuchElementException e){
+            LOGGER.error("NO truck in system!");
+        }
+        return null;
+    }
+
 }

@@ -1,6 +1,6 @@
-package cc.aisc.core.config.datasource.mybatis;
+package cc.aisc.core.config.db.support;
 
-import cc.aisc.core.config.datasource.annotation.TargetDataSource;
+import cc.aisc.core.config.db.support.annotation.TargetDataSource;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.*;
 import org.slf4j.Logger;
@@ -16,7 +16,7 @@ import org.springframework.stereotype.Component;
 public class DynamicDataSourceAspect {
     private static final Logger LOGGER = LoggerFactory.getLogger(DynamicDataSourceAspect.class);
 
-    @Pointcut("@annotation(cc.aisc.core.config.datasource.annotation.TargetDataSource)")
+    @Pointcut("@annotation(cc.aisc.core.config.db.support.annotation.TargetDataSource)")
     public void targetDataSource(){}
 
     @Pointcut("execution(* cc.aisc.biz.service.*.*(..))")
